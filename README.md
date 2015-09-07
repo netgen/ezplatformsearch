@@ -1,7 +1,7 @@
 eZ Platform Search extension
 ============================
 
-eZ Platform search is an eZ Publish legacy extension that integrates eZ Platform search
+eZ Platform Search is an eZ Publish legacy extension that integrates eZ Platform search
 capabilities into eZ Publish legacy.
 
 This extension is useful when you wish to run eZ Platform with legacy administration installed

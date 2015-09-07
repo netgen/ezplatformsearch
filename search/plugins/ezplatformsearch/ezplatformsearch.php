@@ -250,12 +250,24 @@ class eZPlatformSearch implements ezpSearchEngine
         $query->limit = isset( $params['SearchLimit'] ) ? (int)$params['SearchLimit'] : 10;
         $query->offset = isset( $params['SearchOffset'] ) ? (int)$params['SearchOffset'] : 0;
 
-        $searchResult = $this->repository->getSearchService()->findLocations( $query );
+        $useLocationSearch = eZINI::instance( 'ezplatformsearch.ini' )
+            ->variable( 'SearchSettings', 'UseLocationSearch' ) === 'true';
+
+        if ( $useLocationSearch )
+        {
+            $searchResult = $this->repository->getSearchService()->findLocations( $query );
+        }
+        else
+        {
+            $searchResult = $this->repository->getSearchService()->findContent( $query );
+        }
 
         $nodeIds = array();
         foreach ( $searchResult->searchHits as $searchHit )
         {
-            $nodeIds[] = $searchHit->valueObject->id;
+            $nodeIds[] = $useLocationSearch ?
+                $searchHit->valueObject->id :
+                $searchHit->valueObject->contentInfo->mainLocationId;
         }
 
         $nodes = eZContentObjectTreeNode::fetch( $nodeIds );

@@ -126,7 +126,7 @@ class eZPlatformSearch implements ezpSearchEngine
         }
         else
         {
-            $this->searchHandler->deleteContent( $contentObjectId );
+            $this->searchHandler->deleteContent( (int)$contentObjectId );
         }
 
         if ( $commit )

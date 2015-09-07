@@ -82,7 +82,7 @@ class eZPlatformSearch implements ezpSearchEngine
             $this->searchHandler->indexContent( $content );
         }
 
-        if ( $commit || $this->needCommit() )
+        if ( $commit )
         {
             $this->commit();
         }
@@ -128,7 +128,7 @@ class eZPlatformSearch implements ezpSearchEngine
             $this->searchHandler->deleteContent( $contentObjectId );
         }
 
-        if ( $commit || $this->needCommit() )
+        if ( $commit )
         {
             $this->commit();
         }

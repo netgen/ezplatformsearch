@@ -250,7 +250,7 @@ class eZPlatformSearch implements ezpSearchEngine
         $query->limit = isset( $params['SearchLimit'] ) ? (int)$params['SearchLimit'] : 10;
         $query->offset = isset( $params['SearchOffset'] ) ? (int)$params['SearchOffset'] : 0;
 
-        $searchResult = $this->repository->getSearchService()->findLocations( $query, array(), false );
+        $searchResult = $this->repository->getSearchService()->findLocations( $query );
 
         $nodeIds = array();
         foreach ( $searchResult->searchHits as $searchHit )

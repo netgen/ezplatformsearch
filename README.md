@@ -58,6 +58,7 @@ If you want to use location search, enable the location full text criterion in y
 with the following config:
 
 ```yml
+services:
     ezpublish.search.solr.query.location.criterion_visitor.full_text:
         class: %ezpublish.search.solr.query.location.criterion_visitor.full_text.class%
         arguments:

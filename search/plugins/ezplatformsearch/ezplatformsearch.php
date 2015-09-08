@@ -12,6 +12,11 @@ class eZPlatformSearch implements ezpSearchEngine
     protected $searchHandler;
 
     /**
+     * @var \eZ\Publish\SPI\Persistence\Handler
+     */
+    protected $persistenceHandler;
+
+    /**
      * @var \eZ\Publish\API\Repository\Repository
      */
     protected $repository;
@@ -29,6 +34,7 @@ class eZPlatformSearch implements ezpSearchEngine
         $serviceContainer = ezpKernel::instance()->getServiceContainer();
 
         $this->searchHandler = $serviceContainer->get( 'ezpublish.spi.search' );
+        $this->persistenceHandler = $serviceContainer->get( 'ezpublish.api.persistence_handler' );
         $this->repository = $serviceContainer->get( 'ezpublish.api.repository' );
         $this->searchEngine = $serviceContainer->getParameter( 'search_engine' );
     }
@@ -71,13 +77,9 @@ class eZPlatformSearch implements ezpSearchEngine
         }
         else
         {
-            $content = $this->repository->sudo(
-                function ( Repository $repository ) use ( $contentObject )
-                {
-                    return $repository->getContentService()->loadContent(
-                        (int)$contentObject->attribute( 'id' )
-                    );
-                }
+            $content = $this->persistenceHandler->contentHandler()->load(
+                (int)$contentObject->attribute( 'id' ),
+                (int)$contentObject->attribute( 'current_version' )
             );
 
             $this->searchHandler->indexContent( $content );

@@ -261,7 +261,7 @@ class eZPlatformSearch implements ezpSearchEngine
         }
         else
         {
-            $searchResult = $this->repository->getSearchService()->findContent( $query );
+            $searchResult = $this->repository->getSearchService()->findContentInfo( $query );
         }
 
         $nodeIds = array();
@@ -269,7 +269,7 @@ class eZPlatformSearch implements ezpSearchEngine
         {
             $nodeIds[] = $useLocationSearch ?
                 $searchHit->valueObject->id :
-                $searchHit->valueObject->contentInfo->mainLocationId;
+                $searchHit->valueObject->mainLocationId;
         }
 
         $nodes = eZContentObjectTreeNode::fetch( $nodeIds );

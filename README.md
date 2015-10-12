@@ -48,26 +48,12 @@ Run the following from your installation root folder
 
 Or go to Setup -> Extensions in admin interface and click the "Regenerate autoload arrays" button
 
-Searching for locations instead of content
+Searching for content instead of locations
 ------------------------------------------
 
-By default, the plugin will search for content since full text criterion for locations is not
-enabled by default.
+By default, the plugin will search for locations.
 
-If you want to use location search, enable the location full text criterion in your `services.yml`
-with the following config:
-
-```yml
-services:
-    ezpublish.search.solr.query.location.criterion_visitor.full_text:
-        class: %ezpublish.search.solr.query.location.criterion_visitor.full_text.class%
-        arguments:
-            - @ezpublish.search.common.field_name_resolver
-        tags:
-            - {name: ezpublish.search.solr.query.location.criterion_visitor}
-```
-
-and switch the `[SearchSettings]/UseLocationSearch` config in `ezplatformsearch.ini` to `true`.
+If you want to use content search, switch the `[SearchSettings]/UseLocationSearch` config in `ezplatformsearch.ini` to `false`.
 
 License
 -------

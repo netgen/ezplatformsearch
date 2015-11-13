@@ -48,6 +48,15 @@ Run the following from your installation root folder
 
 Or go to Setup -> Extensions in admin interface and click the "Regenerate autoload arrays" button
 
+### Ensure parameters.yml has required parameters
+
+Check if you have the `search_engine` parameter in your `parameters.yml` file. Set it to either `solr` or `legacy` if it is not yet set.
+
+```yml
+# One of `legacy` or `solr`
+search_engine: solr
+```
+
 Searching for content instead of locations
 ------------------------------------------
 

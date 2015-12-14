@@ -61,7 +61,7 @@ search_engine: solr
 
 #### Run the cronjobs
 This extension ships with a cronjob to index subtrees of content that have had their visibility
-updated. The cron needs to be executed using the `ezpublish:legacy:script` runner..
+updated. The cron needs to be executed using the `ezpublish:legacy:script` runner.
 
 ```ini
 php ezpublish/console ezpublish:legacy:script runcronjobs.php ezplatformindexsubtree

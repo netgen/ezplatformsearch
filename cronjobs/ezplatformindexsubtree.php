@@ -5,9 +5,9 @@ if ( !$isQuiet )
     $cli->output( "Processing pending subtree re-index actions" );
 }
 
-// check that solr is enabled and used
-$eZSolr = eZSearch::getEngine();
-if ( !$eZSolr instanceof eZPlatformSearch )
+// check that eZPlatformSearch is enabled and used
+$searchEngine = eZSearch::getEngine();
+if ( !$searchEngine instanceof eZPlatformSearch )
 {
     $script->shutdown( 1, 'The current search engine plugin is not eZPlatformSearch' );
 }
@@ -43,11 +43,11 @@ if ( !empty( $entries ) )
                     ++$offset;
                     $cli->output( "\tIndexing object ID #{$node->attribute( 'contentobject_id' )}" );
                     // delay commits with passing false for $commit parameter
-                    $eZSolr->addObject( $node->attribute( 'object' ), false );
+                    $searchEngine->addObject( $node->attribute( 'object' ), false );
                 }
 
                 // finish up with commit
-                $eZSolr->commit();
+                $searchEngine->commit();
                 // clear object cache to conserver memory
                 eZContentObject::clearCache();
             }

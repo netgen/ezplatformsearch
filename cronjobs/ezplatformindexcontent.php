@@ -5,9 +5,9 @@ if ( !$isQuiet )
     $cli->output( "Processing pending content index actions" );
 }
 
-// check that solr is enabled and used
-$eZSolr = eZSearch::getEngine();
-if ( !$eZSolr instanceof eZPlatformSearch )
+// check that eZPlatformSearch is enabled and used
+$searchEngine = eZSearch::getEngine();
+if ( !$searchEngine instanceof eZPlatformSearch )
 {
     $script->shutdown( 1, 'The current search engine plugin is not eZPlatformSearch' );
 }
@@ -26,12 +26,12 @@ if ( !empty( $entries ) )
         $contentObject = eZContentObject::fetch( $contentObjectId );
         if ( !is_null( $contentObject ) )
         {
-            $eZSolr->addObject( $contentObject, false );
+            $searchEngine->addObject( $contentObject, false );
         }
     }
 
     // force commit additions
-    $eZSolr->commit();
+    $searchEngine->commit();
 
     // clear object cache
     eZContentObject::clearCache();

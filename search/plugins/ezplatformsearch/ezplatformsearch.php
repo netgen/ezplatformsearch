@@ -3,6 +3,7 @@
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 
 class eZPlatformSearch implements ezpSearchEngine
 {
@@ -77,12 +78,27 @@ class eZPlatformSearch implements ezpSearchEngine
         }
         else
         {
-            $content = $this->persistenceHandler->contentHandler()->load(
-                (int)$contentObject->attribute( 'id' ),
-                (int)$contentObject->attribute( 'current_version' )
-            );
+            try {
+                $content = $this->persistenceHandler->contentHandler()->load(
+                    (int)$contentObject->attribute( 'id' ),
+                    (int)$contentObject->attribute( 'current_version' )
+                );
 
-            $this->searchHandler->indexContent( $content );
+                $this->searchHandler->indexContent( $content );
+            } catch (NotFoundException $e) {
+                $pendingAction = new eZPendingActions(
+                    array(
+                        'action' => 'index_content_object',
+                        'created' => time(),
+                        'param' => (int)$contentObject->attribute( 'id' )
+                    )
+                );
+
+                $pendingAction->store();
+
+                // dont bother with the commit
+                $commit = false;
+            }
         }
 
         if ( $commit )

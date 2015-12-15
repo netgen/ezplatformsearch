@@ -502,7 +502,7 @@ class eZPlatformSearch implements ezpSearchEngine
     /**
      * Normalizes the text so that it is easily parsable
      *
-     * Used only by legacy search engine.
+     * Used only by legacy search engine (eZSearchEngine class).
      *
      * @param string $text
      *

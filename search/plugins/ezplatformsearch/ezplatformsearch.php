@@ -75,34 +75,38 @@ class eZPlatformSearch implements ezpSearchEngine
         {
             $searchEngine = new eZSearchEngine();
             $searchEngine->addObject( $contentObject, $commit );
+
+            if ( $commit )
+            {
+                $this->commit();
+            }
+
+            return true;
         }
-        else
+
+        try
         {
-            try
-            {
-                $content = $this->persistenceHandler->contentHandler()->load(
-                    (int)$contentObject->attribute( 'id' ),
-                    (int)$contentObject->attribute( 'current_version' )
-                );
-
-                $this->searchHandler->indexContent( $content );
-            }
-            catch ( NotFoundException $e )
-            {
-                $pendingAction = new eZPendingActions(
-                    array(
-                        'action' => 'index_object',
-                        'created' => time(),
-                        'param' => (int)$contentObject->attribute( 'id' )
-                    )
-                );
-
-                $pendingAction->store();
-
-                // don't bother with the commit
-                $commit = false;
-            }
+            $content = $this->persistenceHandler->contentHandler()->load(
+                (int)$contentObject->attribute( 'id' ),
+                (int)$contentObject->attribute( 'current_version' )
+            );
         }
+        catch ( NotFoundException $e )
+        {
+            $pendingAction = new eZPendingActions(
+                array(
+                    'action' => 'index_object',
+                    'created' => time(),
+                    'param' => (int)$contentObject->attribute( 'id' )
+                )
+            );
+
+            $pendingAction->store();
+
+            return true;
+        }
+
+        $this->searchHandler->indexContent( $content );
 
         if ( $commit )
         {

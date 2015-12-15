@@ -50,12 +50,20 @@ Or go to Setup -> Extensions in admin interface and click the "Regenerate autolo
 
 ### Ensure parameters.yml has required parameters
 
-Check if you have the `search_engine` parameter in your `parameters.yml` file. Set it to either `solr` or `legacy` if it is not yet set.
+Check if you have the `search_engine` parameter in your `parameters.yml` file. Set it to either `solr` or `legacy` if it is not already set.
 
 ```yml
 # One of `legacy` or `solr`
 search_engine: solr
 ```
+
+### Other Notes
+
+#### Run the cronjobs
+
+This extension ships with a cronjob to index subtrees of content that have had their visibility updated. The cron needs to be executed using the `ezpublish:legacy:script` runner.
+
+    php ezpublish/console ezpublish:legacy:script runcronjobs.php ezplatformindexsubtree
 
 Searching for content instead of locations
 ------------------------------------------

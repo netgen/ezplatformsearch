@@ -48,7 +48,7 @@ if ( !empty( $entries ) )
 
                 // finish up with commit
                 $searchEngine->commit();
-                // clear object cache to conserver memory
+                // clear object cache to conserve memory
                 eZContentObject::clearCache();
             }
             else

@@ -57,9 +57,8 @@ Check if you have the `search_engine` parameter in your `parameters.yml` file. S
 search_engine: solr
 ```
 
-### Other Notes
-
-#### Run the cronjobs
+Setup cronjobs
+--------------
 
 This extension ships with a cronjob to index subtrees of content that have had their visibility updated. The cron needs to be executed using the `ezpublish:legacy:script` runner.
 

@@ -3,7 +3,7 @@
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 
 class eZPlatformSearch implements ezpSearchEngine
 {

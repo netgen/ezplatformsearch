@@ -78,14 +78,17 @@ class eZPlatformSearch implements ezpSearchEngine
         }
         else
         {
-            try {
+            try
+            {
                 $content = $this->persistenceHandler->contentHandler()->load(
                     (int)$contentObject->attribute( 'id' ),
                     (int)$contentObject->attribute( 'current_version' )
                 );
 
                 $this->searchHandler->indexContent( $content );
-            } catch (NotFoundException $e) {
+            }
+            catch ( NotFoundException $e )
+            {
                 $pendingAction = new eZPendingActions(
                     array(
                         'action' => 'index_object',
@@ -96,7 +99,7 @@ class eZPlatformSearch implements ezpSearchEngine
 
                 $pendingAction->store();
 
-                // dont bother with the commit
+                // don't bother with the commit
                 $commit = false;
             }
         }

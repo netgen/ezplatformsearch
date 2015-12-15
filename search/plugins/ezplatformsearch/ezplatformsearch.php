@@ -88,7 +88,7 @@ class eZPlatformSearch implements ezpSearchEngine
             } catch (NotFoundException $e) {
                 $pendingAction = new eZPendingActions(
                     array(
-                        'action' => 'index_content_object',
+                        'action' => 'index_object',
                         'created' => time(),
                         'param' => (int)$contentObject->attribute( 'id' )
                     )

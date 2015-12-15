@@ -5,5 +5,4 @@ ExtensionDirectories[]=ezplatformsearch
 
 [CronjobPart-ezplatformindexsubtree]
 Scripts[]=ezplatformindexsubtree.php
-
 */

@@ -76,11 +76,6 @@ class eZPlatformSearch implements ezpSearchEngine
             $searchEngine = new eZSearchEngine();
             $searchEngine->addObject( $contentObject, $commit );
 
-            if ( $commit )
-            {
-                $this->commit();
-            }
-
             return true;
         }
 
@@ -148,11 +143,11 @@ class eZPlatformSearch implements ezpSearchEngine
         {
             $searchEngine = new eZSearchEngine();
             $searchEngine->removeObjectById( $contentObjectId, $commit );
+
+            return true;
         }
-        else
-        {
-            $this->searchHandler->deleteContent( (int)$contentObjectId );
-        }
+
+        $this->searchHandler->deleteContent( (int)$contentObjectId );
 
         if ( $commit )
         {

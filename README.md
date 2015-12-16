@@ -44,7 +44,7 @@ ActiveExtensions[]=ezplatformsearch
 
 Run the following from your installation root folder
 
-    php ezpublish/console ezpublish:legacy:script bin/php/ezpgenerateautoloads.php
+    php app/console ezpublish:legacy:script bin/php/ezpgenerateautoloads.php
 
 Or go to Setup -> Extensions in admin interface and click the "Regenerate autoload arrays" button
 
@@ -62,7 +62,7 @@ Setup cronjobs
 
 This extension ships with a cronjob to index subtrees of content that have had their visibility updated. The cron needs to be executed using the `ezpublish:legacy:script` runner.
 
-    php ezpublish/console ezpublish:legacy:script runcronjobs.php ezplatformindexsubtree
+    php app/console ezpublish:legacy:script runcronjobs.php ezplatformindexsubtree
 
 Searching for content instead of locations
 ------------------------------------------

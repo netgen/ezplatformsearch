@@ -81,6 +81,17 @@ class eZPlatformSearch implements ezpSearchEngine
 
         try
         {
+            // If the method is called for restoring from trash we'll be inside a transaction,
+            // meaning created Location(s) will not be visible outside of it.
+            // We check that Content's Locations are visible from the new stack, if not Content
+            // will be registered for indexing.
+            foreach ( $contentObject->assignedNodes() as $node )
+            {
+                $this->persistenceHandler->locationHandler()->load(
+                    $node->attribute( 'node_id' )
+                );
+            }
+
             $content = $this->persistenceHandler->contentHandler()->load(
                 (int)$contentObject->attribute( 'id' ),
                 (int)$contentObject->attribute( 'current_version' )

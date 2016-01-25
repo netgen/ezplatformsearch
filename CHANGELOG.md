@@ -1,6 +1,11 @@
 eZ Platform Search extension changelog
 ======================================
 
+1.1.1 (25.01.2016)
+------------------
+
+* Fix failures to index content restored from trash and sent to trash (thanks @pspanja)
+
 1.1.0 (16.12.2015)
 ------------------
 

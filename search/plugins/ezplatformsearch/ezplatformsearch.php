@@ -28,6 +28,11 @@ class eZPlatformSearch implements ezpSearchEngine
     protected $searchEngine;
 
     /**
+     * @var \eZINI
+     */
+    protected $iniConfig;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -38,6 +43,8 @@ class eZPlatformSearch implements ezpSearchEngine
         $this->persistenceHandler = $serviceContainer->get( 'ezpublish.api.persistence_handler' );
         $this->repository = $serviceContainer->get( 'ezpublish.api.repository' );
         $this->searchEngine = $serviceContainer->getParameter( 'search_engine' );
+
+        $this->iniConfig = eZINI::instance( 'ezplatformsearch.ini' );
     }
 
     /**
@@ -149,6 +156,15 @@ class eZPlatformSearch implements ezpSearchEngine
      */
     public function removeObjectById( $contentObjectId, $commit = null )
     {
+        if ( !isset( $commit ) && ( $this->iniConfig->variable( 'IndexOptions', 'DisableDeleteCommits' ) === 'true' ) )
+        {
+            $commit = false;
+        }
+        elseif ( !isset( $commit ) )
+        {
+            $commit = true;
+        }
+
         // Indexing is not implemented in eZ Publish 5 legacy search engine
         if ( $this->searchEngine == 'legacy' )
         {
@@ -281,8 +297,7 @@ class eZPlatformSearch implements ezpSearchEngine
         $query->limit = isset( $params['SearchLimit'] ) ? (int)$params['SearchLimit'] : 10;
         $query->offset = isset( $params['SearchOffset'] ) ? (int)$params['SearchOffset'] : 0;
 
-        $useLocationSearch = eZINI::instance( 'ezplatformsearch.ini' )
-            ->variable( 'SearchSettings', 'UseLocationSearch' ) === 'true';
+        $useLocationSearch = $this->iniConfig->variable( 'SearchSettings', 'UseLocationSearch' ) === 'true';
 
         if ( $useLocationSearch )
         {

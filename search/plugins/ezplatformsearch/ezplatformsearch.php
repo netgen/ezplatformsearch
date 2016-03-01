@@ -1,6 +1,6 @@
 <?php
 
-use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\Core\Search\Legacy\Content\Handler as LegacyHandler;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
@@ -23,11 +23,6 @@ class eZPlatformSearch implements ezpSearchEngine
     protected $repository;
 
     /**
-     * @var string
-     */
-    protected $searchEngine;
-
-    /**
      * @var \eZINI
      */
     protected $iniConfig;
@@ -42,7 +37,6 @@ class eZPlatformSearch implements ezpSearchEngine
         $this->searchHandler = $serviceContainer->get( 'ezpublish.spi.search' );
         $this->persistenceHandler = $serviceContainer->get( 'ezpublish.api.persistence_handler' );
         $this->repository = $serviceContainer->get( 'ezpublish.api.repository' );
-        $this->searchEngine = $serviceContainer->getParameter( 'search_engine' );
 
         $this->iniConfig = eZINI::instance( 'ezplatformsearch.ini' );
     }
@@ -78,7 +72,7 @@ class eZPlatformSearch implements ezpSearchEngine
     public function addObject( $contentObject, $commit = true )
     {
         // Indexing is not implemented in eZ Publish 5 legacy search engine
-        if ( $this->searchEngine == 'legacy' )
+        if ( $this->searchHandler instanceof LegacyHandler )
         {
             $searchEngine = new eZSearchEngine();
             $searchEngine->addObject( $contentObject, $commit );
@@ -166,7 +160,7 @@ class eZPlatformSearch implements ezpSearchEngine
         }
 
         // Indexing is not implemented in eZ Publish 5 legacy search engine
-        if ( $this->searchEngine == 'legacy' )
+        if ( $this->searchHandler instanceof LegacyHandler )
         {
             $searchEngine = new eZSearchEngine();
             $searchEngine->removeObjectById( $contentObjectId, $commit );
@@ -372,7 +366,7 @@ class eZPlatformSearch implements ezpSearchEngine
     public function cleanup()
     {
         // Indexing is not implemented in eZ Publish 5 legacy search engine
-        if ( $this->searchEngine == 'legacy' )
+        if ( $this->searchHandler instanceof LegacyHandler )
         {
             $db = eZDB::instance();
             $db->begin();
@@ -515,7 +509,7 @@ class eZPlatformSearch implements ezpSearchEngine
      */
     function isSearchPartIncomplete( $part )
     {
-        if ( $this->searchEngine == 'legacy' )
+        if ( $this->searchHandler instanceof LegacyHandler )
         {
             $searchEngine = new eZSearchEngine();
             return $searchEngine->isSearchPartIncomplete( $part );
@@ -535,7 +529,7 @@ class eZPlatformSearch implements ezpSearchEngine
      */
     public function normalizeText( $text )
     {
-        if ( $this->searchEngine == 'legacy' )
+        if ( $this->searchHandler instanceof LegacyHandler )
         {
             $searchEngine = new eZSearchEngine();
             return $searchEngine->normalizeText( $text );

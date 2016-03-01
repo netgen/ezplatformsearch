@@ -1,6 +1,11 @@
 eZ Platform Search extension changelog
 ======================================
 
+1.1.2 (01.03.2016)
+------------------
+
+* Do not use `search_engine` parameter as it is unreliable
+
 1.1.1 (25.01.2016)
 ------------------
 

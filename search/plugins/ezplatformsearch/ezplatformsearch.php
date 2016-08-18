@@ -310,18 +310,22 @@ class eZPlatformSearch implements ezpSearchEngine
                 $searchHit->valueObject->mainLocationId;
         }
 
-        $nodes = eZContentObjectTreeNode::fetch( $nodeIds );
-        if ( $nodes instanceof eZContentObjectTreeNode )
+        $resultNodes = array();
+        if ( !empty( $nodeIds ) )
         {
-            $nodes = array( $nodes );
-        }
-        else if ( !is_array( $nodes ) )
-        {
-            $nodes = array();
+            $nodes = eZContentObjectTreeNode::fetch( $nodeIds );
+            if ( $nodes instanceof eZContentObjectTreeNode )
+            {
+                $resultNodes = array( $nodes );
+            }
+            else if ( is_array( $nodes ) )
+            {
+                $resultNodes = $nodes;
+            }
         }
 
         return array(
-            'SearchResult' => $nodes,
+            'SearchResult' => $resultNodes,
             'SearchCount' => $searchResult->totalCount,
             'StopWordArray' => array()
         );

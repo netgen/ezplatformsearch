@@ -27,7 +27,7 @@ Installation instructions
 Use Composer to install the extension:
 
 ```
-php composer.phar require netgen/ezplatformsearch:~1.0
+composer require netgen/ezplatformsearch:^1.0
 ```
 
 ### Activate extension

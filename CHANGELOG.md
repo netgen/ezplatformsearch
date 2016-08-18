@@ -1,6 +1,11 @@
 eZ Platform Search extension changelog
 ======================================
 
+1.1.3 (18.08.2016)
+------------------
+
+* Fix a potential issue with empty array passed to `eZContentObjectTreeNode::fetch` (thanks @fdege)
+
 1.1.2 (01.03.2016)
 ------------------
 

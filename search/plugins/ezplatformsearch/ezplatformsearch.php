@@ -315,14 +315,18 @@ class eZPlatformSearch implements ezpSearchEngine
         $resultNodes = array();
         if ( !empty( $nodeIds ) )
         {
+            $resultNodes = array_fill_keys($nodeIds, '');
+
             $nodes = eZContentObjectTreeNode::fetch( $nodeIds );
             if ( $nodes instanceof eZContentObjectTreeNode )
             {
-                $resultNodes = array( $nodes );
+                $resultNodes[$nodes->attribute('node_id')] = $nodes;
             }
             else if ( is_array( $nodes ) )
             {
-                $resultNodes = $nodes;
+                foreach($nodes as $node){
+                    $resultNodes[$node->attribute('node_id')] = $node;
+                }
             }
         }
 

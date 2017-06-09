@@ -283,10 +283,12 @@ class eZPlatformSearch implements ezpSearchEngine
 
         if ( $doFullText )
         {
-            $criteria[] = new Criterion\FullText( $searchText );
+            $query->query = new Criterion\FullText( $searchText );
         }
 
-        $query->query = new Criterion\LogicalAnd( $criteria );
+        if(!empty($criteria)) {
+            $query->filter = new Criterion\LogicalAnd( $criteria );
+        }
 
         $query->limit = isset( $params['SearchLimit'] ) ? (int)$params['SearchLimit'] : 10;
         $query->offset = isset( $params['SearchOffset'] ) ? (int)$params['SearchOffset'] : 0;

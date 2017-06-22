@@ -54,6 +54,12 @@ Setup cronjobs
 This extension ships with a cronjob to index subtrees of content that have had their visibility updated. The cron needs to be executed using the `ezpublish:legacy:script` runner.
 
     php app/console ezpublish:legacy:script runcronjobs.php ezplatformindexsubtree
+    
+In addition to that you should make sure eZ Publish legacy's `cronjobs/indexcontent.php` is executed as well. This is part of the "main set" of cronjobs executed as:
+
+    php app/console ezpublish:legacy:script runcronjobs.php
+
+For further information on setting up cronjobs, see [eZ Publish legacy documentation](https://doc.ez.no/eZ-Publish/Technical-manual/4.x/Features/Cronjobs/Running-cronjobs).
 
 Searching for content instead of locations
 ------------------------------------------

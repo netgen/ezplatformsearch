@@ -1,6 +1,12 @@
 eZ Platform Search extension changelog
 ======================================
 
+1.2.0 (27.10.2017)
+------------------
+
+* EZP-27460: Solr indexing when moving locations (thanks @andrerom)
+* Fix for full text search (thanks @hknezevic)
+
 1.1.3 (24.08.2016)
 ------------------
 

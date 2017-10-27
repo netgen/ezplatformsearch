@@ -319,9 +319,9 @@ class eZPlatformSearch implements ezpSearchEngine
             $resultNodes = eZContentObjectTreeNode::fetch( $nodeIds );
             if ( $resultNodes instanceof eZContentObjectTreeNode )
             {
-                $resultNodes = array ( $resultNodes );
+                $resultNodes = array( $resultNodes );
             }
-            elseif ( is_array( $resultNodes ) )
+            else if ( is_array( $resultNodes ) )
             {
                 $nodeIds = array_flip( $nodeIds );
 

@@ -286,7 +286,7 @@ class eZPlatformSearch implements ezpSearchEngine
             $query->query = new Criterion\FullText( $searchText );
         }
 
-        if( !empty( $criteria ) )
+        if ( !empty( $criteria ) )
         {
             $query->filter = new Criterion\LogicalAnd( $criteria );
         }
@@ -317,12 +317,11 @@ class eZPlatformSearch implements ezpSearchEngine
         if ( !empty( $nodeIds ) )
         {
             $resultNodes = eZContentObjectTreeNode::fetch( $nodeIds );
-
-            if( !is_array( $resultNodes ) )
+            if ( $resultNodes instanceof eZContentObjectTreeNode )
             {
                 $resultNodes = array ( $resultNodes );
             }
-            else
+            elseif ( is_array( $resultNodes ) )
             {
                 $nodeIds = array_flip( $nodeIds );
 

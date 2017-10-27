@@ -286,7 +286,8 @@ class eZPlatformSearch implements ezpSearchEngine
             $query->query = new Criterion\FullText( $searchText );
         }
 
-        if(!empty($criteria)) {
+        if( !empty( $criteria ) )
+        {
             $query->filter = new Criterion\LogicalAnd( $criteria );
         }
 
@@ -315,18 +316,28 @@ class eZPlatformSearch implements ezpSearchEngine
         $resultNodes = array();
         if ( !empty( $nodeIds ) )
         {
-            $resultNodes = array_fill_keys($nodeIds, '');
+            $resultNodes = eZContentObjectTreeNode::fetch( $nodeIds );
 
-            $nodes = eZContentObjectTreeNode::fetch( $nodeIds );
-            if ( $nodes instanceof eZContentObjectTreeNode )
+            if( !is_array( $resultNodes ) )
             {
-                $resultNodes[$nodes->attribute('node_id')] = $nodes;
+                $resultNodes = array ( $resultNodes );
             }
-            else if ( is_array( $nodes ) )
+            else
             {
-                foreach($nodes as $node){
-                    $resultNodes[$node->attribute('node_id')] = $node;
-                }
+                $nodeIds = array_flip( $nodeIds );
+
+                usort(
+                    $resultNodes,
+                    function ( eZContentObjectTreeNode $node1, eZContentObjectTreeNode $node2 ) use ( $nodeIds )
+                    {
+                        if ( $node1->attribute( 'node_id' ) === $node2->attribute( 'node_id' ) )
+                        {
+                            return 0;
+                        }
+
+                        return ( $nodeIds[$node1->attribute( 'node_id' )] < $nodeIds[$node2->attribute( 'node_id' )] ) ? -1 : 1;
+                    }
+                );
             }
         }
 

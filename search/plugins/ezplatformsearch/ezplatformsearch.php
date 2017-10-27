@@ -283,10 +283,13 @@ class eZPlatformSearch implements ezpSearchEngine
 
         if ( $doFullText )
         {
-            $criteria[] = new Criterion\FullText( $searchText );
+            $query->query = new Criterion\FullText( $searchText );
         }
 
-        $query->query = new Criterion\LogicalAnd( $criteria );
+        if ( !empty( $criteria ) )
+        {
+            $query->filter = new Criterion\LogicalAnd( $criteria );
+        }
 
         $query->limit = isset( $params['SearchLimit'] ) ? (int)$params['SearchLimit'] : 10;
         $query->offset = isset( $params['SearchOffset'] ) ? (int)$params['SearchOffset'] : 0;
@@ -313,14 +316,27 @@ class eZPlatformSearch implements ezpSearchEngine
         $resultNodes = array();
         if ( !empty( $nodeIds ) )
         {
-            $nodes = eZContentObjectTreeNode::fetch( $nodeIds );
-            if ( $nodes instanceof eZContentObjectTreeNode )
+            $resultNodes = eZContentObjectTreeNode::fetch( $nodeIds );
+            if ( $resultNodes instanceof eZContentObjectTreeNode )
             {
-                $resultNodes = array( $nodes );
+                $resultNodes = array ( $resultNodes );
             }
-            else if ( is_array( $nodes ) )
+            elseif ( is_array( $resultNodes ) )
             {
-                $resultNodes = $nodes;
+                $nodeIds = array_flip( $nodeIds );
+
+                usort(
+                    $resultNodes,
+                    function ( eZContentObjectTreeNode $node1, eZContentObjectTreeNode $node2 ) use ( $nodeIds )
+                    {
+                        if ( $node1->attribute( 'node_id' ) === $node2->attribute( 'node_id' ) )
+                        {
+                            return 0;
+                        }
+
+                        return ( $nodeIds[$node1->attribute( 'node_id' )] < $nodeIds[$node2->attribute( 'node_id' )] ) ? -1 : 1;
+                    }
+                );
             }
         }
 

@@ -1,6 +1,11 @@
 eZ Platform Search extension changelog
 ======================================
 
+1.2.1 (31.10.2017)
+------------------
+
+* Support the list of content class IDs when searching
+
 1.2.0 (27.10.2017)
 ------------------
 

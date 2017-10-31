@@ -249,7 +249,7 @@ class eZPlatformSearch implements ezpSearchEngine
             $criteria[] = new Criterion\SectionId( (int)$params['SearchSectionID'] );
         }
 
-        if ( isset( $params['SearchContentClassID'] ) && (int)$params['SearchContentClassID'] > 0 )
+        if ( isset( $params['SearchContentClassID'] ) && !is_array( $params['SearchContentClassID'] ) && (int)$params['SearchContentClassID'] > 0 )
         {
             $criteria[] = new Criterion\ContentTypeId( (int)$params['SearchContentClassID'] );
 
@@ -267,6 +267,18 @@ class eZPlatformSearch implements ezpSearchEngine
                     $doFullText = false;
                 }
             }
+        }
+        else if ( isset( $params['SearchContentClassID'] ) && is_array( $params['SearchContentClassID'] ) )
+        {
+            $contentTypeIDs = array_map(
+                function ($contentClassID)
+                {
+                    return (int)$contentClassID;
+                },
+                $params['SearchContentClassID']
+            );
+
+            $criteria[] = new Criterion\ContentTypeId( $contentTypeIDs );
         }
 
         if ( isset( $params['SearchSubTreeArray'] ) && !empty( $params['SearchSubTreeArray'] ) )

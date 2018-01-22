@@ -2,7 +2,7 @@
     "name": "netgen/ezplatformsearch",
     "description": "eZ Platform Search is an eZ Publish legacy extension that integrates eZ Platform search capabilities into eZ Publish legacy",
     "type": "ezpublish-legacy-extension",
-    "license": "GPL-2.0",
+    "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "Netgen",

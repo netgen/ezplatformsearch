@@ -58,7 +58,7 @@ class eZPlatformSearch implements ezpSearchEngine
      */
     public function needRemoveWithUpdate()
     {
-        return true;
+        return $this->iniConfig->variable( 'IndexOptions', 'NeedRemoveWithUpdate' ) === 'true';
     }
 
     /**

@@ -1,6 +1,11 @@
 eZ Platform Search extension changelog
 ======================================
 
+1.2.2 (05.03.2018)
+------------------
+
+* Added option to configure whether search engine needs removal of documents before update (thanks @pspanja)
+
 1.2.1 (31.10.2017)
 ------------------
 

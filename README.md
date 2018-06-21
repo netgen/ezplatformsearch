@@ -1,6 +1,11 @@
 eZ Platform Search extension
 ============================
 
+[![Downloads](https://img.shields.io/packagist/dt/netgen/ezplatformsearch.svg?style=flat-square)](https://packagist.org/packages/netgen/ezplatformsearch/stats)
+[![Latest stable](https://img.shields.io/packagist/v/netgen/ezplatformsearch.svg?style=flat-square)](https://packagist.org/packages/netgen/ezplatformsearch)
+[![License](https://img.shields.io/github/license/netgen/ezplatformsearch.svg?style=flat-square)](LICENSE)
+[![PHP](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg?style=flat-square)](https://secure.php.net/)
+
 eZ Platform Search is an eZ Publish legacy extension that integrates eZ Platform search
 capabilities into eZ Publish legacy.
 

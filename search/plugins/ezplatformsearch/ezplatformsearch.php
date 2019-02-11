@@ -35,7 +35,7 @@ class eZPlatformSearch implements ezpSearchEngine
         $serviceContainer = ezpKernel::instance()->getServiceContainer();
 
         $this->searchHandler = $serviceContainer->get( 'ezpublish.spi.search' );
-        $this->persistenceHandler = $serviceContainer->get( 'ezpublish.api.persistence_handler' );
+        $this->persistenceHandler = $serviceContainer->get( 'ezpublish.api.storage_engine' );
         $this->repository = $serviceContainer->get( 'ezpublish.api.repository' );
 
         $this->iniConfig = eZINI::instance( 'ezplatformsearch.ini' );

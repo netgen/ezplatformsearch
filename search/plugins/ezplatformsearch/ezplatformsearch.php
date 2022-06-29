@@ -1,24 +1,25 @@
 <?php
 
-use eZ\Publish\Core\Search\Legacy\Content\Handler as LegacyHandler;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Search\Legacy\Content\Handler as LegacyHandler;
+use Ibexa\Contracts\Core\Persistence\Handler;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 
 class eZPlatformSearch implements ezpSearchEngine
 {
     /**
-     * @var \eZ\Publish\SPI\Search\Handler
+     * @var \Ibexa\Contracts\Core\Search\Handler
      */
     protected $searchHandler;
 
     /**
-     * @var \eZ\Publish\SPI\Persistence\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Handler
      */
     protected $persistenceHandler;
 
     /**
-     * @var \eZ\Publish\API\Repository\Repository
+     * @var \Ibexa\Contracts\Core\Repository\Repository
      */
     protected $repository;
 
@@ -34,9 +35,9 @@ class eZPlatformSearch implements ezpSearchEngine
     {
         $serviceContainer = ezpKernel::instance()->getServiceContainer();
 
-        $this->searchHandler = $serviceContainer->get( 'ezpublish.spi.search' );
-        $this->persistenceHandler = $serviceContainer->get( 'ezpublish.api.storage_engine' );
-        $this->repository = $serviceContainer->get( 'ezpublish.api.repository' );
+        $this->searchHandler = $serviceContainer->get( 'ibexa.spi.search' );
+        $this->persistenceHandler = $serviceContainer->get( Handler::class );
+        $this->repository = $serviceContainer->get( 'ibexa.api.repository' );
 
         $this->iniConfig = eZINI::instance( 'ezplatformsearch.ini' );
     }

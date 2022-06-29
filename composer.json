@@ -1,6 +1,6 @@
 {
     "name": "netgen/ezplatformsearch",
-    "description": "eZ Platform Search is an eZ Publish legacy extension that integrates eZ Platform search capabilities into eZ Publish legacy",
+    "description": "eZ Platform Search is an eZ Publish legacy extension that integrates Ibexa OSS search capabilities into eZ Publish legacy",
     "type": "ezpublish-legacy-extension",
     "license": "GPL-2.0-only",
     "authors": [
